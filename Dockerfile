@@ -1,6 +1,6 @@
 # Taken from: https://www.joshkasuboski.com/posts/distroless-python-uv/
 
-FROM ghcr.io/astral-sh/uv:bookworm-slim AS builder
+FROM ghcr.io/astral-sh/uv:bookworm-slim@sha256:8558fe5cdb7c690a6e308bd3ad0caf4d17aef1c74d5387ad22b92518102f0f98 AS builder
 ENV UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
     UV_PYTHON_INSTALL_DIR=/python \
@@ -19,7 +19,7 @@ COPY . /app
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev --no-editable
 
-FROM gcr.io/distroless/cc-debian12 AS final
+FROM gcr.io/distroless/cc-debian12@sha256:0000f9dc0290f8eaf0ecceafbc35e803649087ea7879570fbc78372df7ac649b AS final
 
 # Copy the Python version
 COPY --from=builder --chown=python:python /python /python
