@@ -3,7 +3,12 @@ name: Docker Build and Push
 on:
   push:
     branches:
-      - 'main'
+        - main
+    paths:
+        - main.py
+        - Dockerfile
+        - uv.lock
+        - .github/workflows/docker_build_push.yaml
 
 jobs:
   call-workflow-dockerhub-build-push:
