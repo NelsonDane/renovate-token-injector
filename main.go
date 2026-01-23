@@ -12,6 +12,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -121,9 +122,10 @@ func main() {
 	}
 
 	// Write to output file
+	value := "GH_TOKEN=" + strconv.Quote(tokenResp.Token) + "\n"
 	if err := os.WriteFile(
 		outPath,
-		[]byte("GH_TOKEN="+tokenResp.Token+"\n"),
+		[]byte(value),
 		0644,
 	); err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to write file: %v\n", err)
